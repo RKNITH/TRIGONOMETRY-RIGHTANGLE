@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="trigocal.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/trigo.png" type="image/icon">
+    <link rel="stylesheet" type="text/css" href="trigostyle.css">
+
+    <title>Trigonometry calculator</title>
+    <meta content="Trigonometric functions calculator." name="description">
+    <style>
+        .calc td {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .calc span {
+            font-size: xx-large;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .calc select {
+            font-size: x-large;
+            font-family: "Times New Roman", Times, serif;
+            padding: 1px;
+            background: rgb(205, 206, 196);
+        }
+
+        .calc input {
+            font-size: x-large;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .calc input[type=text] {
+            width: 100%;
+        }
+
+        .calc button {
+            margin: 7px auto;
+        }
+
+        /*.calc tr { line-height:40px; }*/
+
+        @media all and (max-width: 576px) {
+            .calc {
+                width: 100%;
+                padding: 8px;
+            }
+
+            .calc input[type=number] {
+                width: 130px;
+            }
+
+            #x,
+            #y {
+                width: 100%;
+            }
+        }
+
+        @media all and (min-width: 577px) {
+            .calc {
+                padding: 20px;
+                width: 426px;
+            }
+
+            .calc input[type=number] {
+                width: 200px;
+            }
+
+            .calc input[type=button],
+            .calc input[type=reset] {
+                font-size: large;
+            }
+
+            #x {
+                width: 200px;
+            }
+
+            #y {
+                width: 305px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <center>
+
+        <h1>Trigonometry Calculator</h1>
+        <hr color="#E5C480" width=90%>
+
+
+        <h2>Right triangle calculator</h2>
+        <p>Enter one side and second value and press the <i>Calculate</i> button:</p>
+        <form name="calcform1">
+            <table class="calc">
+                <tr>
+                    <td><label for="a">Side a:</label></td>
+                    <td><input type="number" step="any" id="a" name="a" class="intext" autofocus></td>
+                </tr>
+                <tr>
+                    <td><label for="a">Side b:</label></td>
+                    <td><input type="number" step="any" id="b" name="b" class="intext"></td>
+                </tr>
+                <tr>
+                    <td><label for="a">Side c:</label></td>
+                    <td><input type="number" step="any" id="c" name="c" class="intext"></td>
+                </tr>
+                <tr>
+                    <td><label for="a">Angle A:</label></td>
+                    <td><input type="number" step="any" id="anglea" name="anglea" class="intext"></td>
+                    <td>
+                        <select id="degtype1">
+                            <option selected>&deg;</option>
+                            <option>rad</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="a">Angle B:</label></td>
+                    <td><input type="number" step="any" id="angleb" name="angleb" class="intext"></td>
+                    <td>
+                        <select id="degtype2">
+                            <option selected>&deg;</option>
+                            <option>rad</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="2">
+                        <button type="button" title="Calculate" class="btn" onclick="calcright()"> Calculate</button>
+                        <button type="reset" title="Reset" class="btn"> Reset</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <h2>Trigonometric functions calculator</h2>
+        <form name="calcform2">
+            <table class="calc">
+                <tr>
+                    <td>
+                        <select id="func" class="math" onchange="OnFuncChange()">
+                            <option>sin</option>
+                            <option>cos</option>
+                            <option>tan</option>
+                            <option>csc</option>
+                            <option>sec</option>
+                            <option>cot</option>
+                            <option>arcsin</option>
+                            <option>arccos</option>
+                            <option>arctan</option>
+                            <option>arccsc</option>
+                            <option>arcsec</option>
+                            <option>arccot</option>
+                        </select>
+                    </td>
+                    <td><input type="number" step="any" id="x" name="x" class="intext"></td>
+                    <td id="sel1"><select id="degtype" name="D1" class="math" onchange="OnSelChange()">
+                            <option selected>&deg;</option>
+                            <option>rad</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <button type="button" title="Calculate" class="btn" onclick="calc()"> Calculate</button>
+                        <button type="reset" title="Reset" class="btn"> Reset</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Result:</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="text" id="y" name="y" class="outtext" readonly></td>
+                    <td id="sel2" style="display:none">
+                        <select id="degtype3" name="D2" onchange="OnSelChange()">
+                            <option selected>&deg;</option>
+                            <option>rad</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <h2>Trigonometric functions</h2>
+        <p class="math">sin <em>A</em> = opposite / hypotenuse = <em>a</em> / <em>c</em></p>
+        <p class="math">cos <em>A</em> = adjacent / hypotenuse = <em>b</em> / <em>c</em></p>
+        <p class="math">tan <em>A</em> = opposite / adjacent = <em>a</em> / <em>b</em></p>
+        <p>&nbsp;</p>
+        <p class="math">csc <em>A</em> = hypotenuse / opposite = <em>c</em> / <em>a</em></p>
+        <p class="math">sec <em>A</em> = hypotenuse / adjacent = <em>c</em> / <em>b</em></p>
+        <p class="math">cot <em>A</em> = adjacent / opposite = <em>b</em> / <em>a</em></p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <img src="assets/triangle.png">
+        <br>
+        <br>
+        <hr width=90% color="#E5C480">
+
+
+        <script src="trigocal.js"></script>
+        <script>
+            function calcright() {
+                var i1 = document.getElementById("degtype1").selectedIndex;
+                var i2 = document.getElementById("degtype2").selectedIndex;
+                var a = document.getElementById("a").value;
+                var b = document.getElementById("b").value;
+                var c = document.getElementById("c").value;
+                var anglea = document.getElementById("anglea").value;
+                var angleb = document.getElementById("angleb").value;
+                //var area = document.getElementById("area").value;
+                if (anglea != "" && i1 == 0) anglea *= Math.PI / 180.0;
+                if (angleb != "" && i2 == 0) angleb *= Math.PI / 180.0;
+                if (angleb && !anglea) anglea = Math.PI / 2 - angleb;
+                if (anglea && !angleb) angleb = Math.PI / 2 - anglea;
+                if (a && b) {
+                    c = Math.sqrt(a * a + b * b);
+                } else if (a && c) {
+                    b = Math.sqrt(c * c - a * a);
+                } else if (b && c) {
+                    a = Math.sqrt(c * c - b * b);
+                } else if (a && anglea) {
+                    b = a / Math.tan(anglea);
+                    c = Math.sqrt(a * a + b * b);
+                } else if (b && anglea) {
+                    a = b * Math.tan(anglea);
+                    c = Math.sqrt(a * a + b * b);
+                } else if (c && anglea) {
+                    a = c * Math.sin(anglea);
+                    b = c * Math.cos(anglea);
+                }
+                anglea = Math.atan(a / b);
+                angleb = Math.atan(b / a);
+                if (i1 == 0) anglea *= 180.0 / Math.PI;
+                if (i2 == 0) angleb *= 180.0 / Math.PI;
+                document.getElementById("a").value = roundnum(a, 6);
+                document.getElementById("b").value = roundnum(b, 6);
+                document.getElementById("c").value = roundnum(c, 6);
+                document.getElementById("anglea").value = roundnum(anglea, 6);
+                document.getElementById("angleb").value = roundnum(angleb, 6);
+                //document.getElementById("area").value = area;
+            }
+
+            function OnFuncChange() {
+                var sel1 = document.getElementById("sel1");
+                var sel2 = document.getElementById("sel2");
+                var i = document.getElementById("func").selectedIndex;
+                if (i <= 5) {
+                    sel1.style.display = "";
+                    sel2.style.display = "none";
+                } else {
+                    sel1.style.display = "none";
+                    sel2.style.display = "";
+                }
+            }
+
+            function OnSelChange() {
+                calc();
+            }
+
+            function calc() {
+                var i = document.getElementById("func").selectedIndex;
+                var i1 = document.getElementById("degtype").selectedIndex;
+                var i2 = document.getElementById("degtype2").selectedIndex;
+                var x = document.calcform2.x.value;
+                var y;
+                if (i <= 5 && i1 == 0) x *= Math.PI / 180;
+                if (i == 0) y = Math.sin(x);
+                else if (i == 1) y = Math.cos(x);
+                else if (i == 2) y = Math.tan(x);
+                else if (i == 3) y = 1 / Math.sin(x);
+                else if (i == 4) y = 1 / Math.cos(x);
+                else if (i == 5) y = 1 / Math.tan(x);
+                else if (i == 6) y = Math.asin(x);
+                else if (i == 7) y = Math.acos(x);
+                else if (i == 8) y = Math.atan(x);
+                else if (i == 9) y = Math.asin(1 / x);
+                else if (i == 10) y = Math.acos(1 / x);
+                else y = Math.atan(1 / x);
+                if (i >= 6 && i2 == 0) y *= 180 / Math.PI;
+                y = roundnum2(y, 8);
+                document.calcform2.y.value = y;
+            }
+        </script>
+    </center>
+</body>
+
+</html>
